@@ -1,6 +1,7 @@
 "use strict";
 // import dotenv from 'dotenv';
 // dotenv.config();
+Object.defineProperty(exports, "__esModule", { value: true });
 // module.exports = {
 // 	client: 'mysql2',
 // 	connection: {
@@ -14,7 +15,7 @@
 // 	directory: './migrations'
 // 	}
 // };
-module.exports = {
+exports.default = {
     client: 'pg',
     connection: {
         database: 'nurse_mgmt',

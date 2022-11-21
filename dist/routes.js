@@ -8,10 +8,11 @@ const router = express_1.default.Router();
 const userRoutes = require('./routes/userRoutes');
 const nurseRoutes = require('./routes/nurseRoutes');
 const authRoutes = require('./routes/authRoutes');
+const verification_1 = require("./middlewares/verification");
 router.get('/', (req, res) => {
     res.send('Hello World');
 });
 router.use('/auth', authRoutes);
-router.use('/nurses', nurseRoutes);
+router.use('/nurses', verification_1.verification, nurseRoutes);
 router.use('/users', userRoutes);
 module.exports = router;

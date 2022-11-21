@@ -17,7 +17,7 @@
 // 	}
 // };
 
-module.exports = {
+export default {
     client: 'pg',
     connection: {
       database: 'nurse_mgmt',

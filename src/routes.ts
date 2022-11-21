@@ -6,6 +6,7 @@ const userRoutes = require('./routes/userRoutes');
 const nurseRoutes = require('./routes/nurseRoutes');
 const authRoutes = require('./routes/authRoutes');
 
+import {verification} from './middlewares/verification';
 
 router.get('/', (req,res) => {
     res.send('Hello World');
@@ -14,7 +15,7 @@ router.get('/', (req,res) => {
 router.use('/auth', authRoutes);
 
 
-router.use('/nurses', nurseRoutes);
+router.use('/nurses', verification, nurseRoutes);
 router.use('/users', userRoutes);
 
 
