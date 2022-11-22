@@ -16,7 +16,7 @@ const signin = (req, res, next) => {
                 name: data.name,
                 email: data.email
             };
-            var token = jwt.sign({ userInfo }, secretKey);
+            var token = jwt.sign(userInfo, secretKey);
             res.json({ token });
         }
         res.json({ message: "wrong password" });

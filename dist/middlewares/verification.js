@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const secretKey = 'hidethis';
 const verification = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
-    console.log('token', token);
+    // console.log('token', token)
     if (!token) {
         return res.status(401).json({ message: 'No token provided.' });
     }
@@ -15,6 +15,7 @@ const verification = (req, res, next) => {
         if (err) {
             return res.status(500).json({ message: 'Failed to authenticate token.' });
         }
+        console.log("decoded", decoded);
         req.user = decoded;
         next();
     });

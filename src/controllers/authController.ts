@@ -21,7 +21,7 @@ export const signin = (req: Request, res: Response, next: NextFunction) => {
                 email: data.email
             };
 
-            var token = jwt.sign({userInfo}, secretKey);
+            var token = jwt.sign(userInfo, secretKey);
             res.json({token});
         }
         res.json({message: "wrong password"})
