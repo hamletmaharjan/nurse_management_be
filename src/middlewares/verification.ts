@@ -18,7 +18,7 @@ export const verification = (req: any, res: Response, next:NextFunction) =>{
         if (err) {
             return res.status(500).json({ message: 'Failed to authenticate token.' });
         }
-        console.log("decoded", decoded);
+        // console.log("decoded", decoded);
         req.user = decoded;
         next();
     });

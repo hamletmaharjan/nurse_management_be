@@ -13,7 +13,7 @@ import {
 export const create = (req: any, res: Response, next: NextFunction) => {
     let nurse = req.body;
     nurse.user_id = req.user.id;
-    console.log("nurse",nurse);
+    console.log("nurse",req.file);
     createNurse(nurse).then((data) => {
         res.json({message: "added"});
     }).catch((error) => next(error));

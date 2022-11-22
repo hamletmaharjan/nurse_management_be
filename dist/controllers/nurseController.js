@@ -5,7 +5,7 @@ const nurseServices_1 = require("../services/nurseServices");
 const create = (req, res, next) => {
     let nurse = req.body;
     nurse.user_id = req.user.id;
-    console.log("nurse", nurse);
+    console.log("nurse", req.file);
     (0, nurseServices_1.createNurse)(nurse).then((data) => {
         res.json({ message: "added" });
     }).catch((error) => next(error));
