@@ -9,7 +9,7 @@ const imageUpload = (req, res, next) => {
     singleUpload(req, res, function (err) {
         console.log('req', req.file);
         if (err) {
-            return res.status(422).send({ errors: [{ title: 'Image Upload Error', detail: err.message }] });
+            return res.status(422).send({ errors: [{ title: 'Image Upload Error', detail: err }] });
         }
         next();
     });

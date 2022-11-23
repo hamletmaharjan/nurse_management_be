@@ -5,7 +5,10 @@ const nurseServices_1 = require("../services/nurseServices");
 const create = (req, res, next) => {
     let nurse = req.body;
     nurse.user_id = req.user.id;
-    console.log("nurse", req.file);
+    if (req.file) {
+        nurse.image = req.file.location;
+    }
+    // console.log("nurse",req.file);
     (0, nurseServices_1.createNurse)(nurse).then((data) => {
         res.json({ message: "added" });
     }).catch((error) => next(error));
@@ -22,7 +25,15 @@ const update = (req, res, next) => {
     (0, nurseServices_1.fetchNurseById)(id).then((data) => {
         let nurse = req.body;
         nurse.user_id = req.user.id;
+        console.log('req', req.body);
         if (data.user_id === req.user.id) {
+            if (req.file) {
+                nurse.image = req.file.location;
+            }
+            else {
+                nurse.image = data.image;
+            }
+            console.log('data', nurse);
             return (0, nurseServices_1.updateNurse)(id, nurse);
             // res.json({message: "can update"})
         }

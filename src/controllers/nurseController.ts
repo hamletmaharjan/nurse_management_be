@@ -13,7 +13,10 @@ import {
 export const create = (req: any, res: Response, next: NextFunction) => {
     let nurse = req.body;
     nurse.user_id = req.user.id;
-    console.log("nurse",req.file);
+    if(req.file) {
+        nurse.image = req.file.location;
+    }
+    // console.log("nurse",req.file);
     createNurse(nurse).then((data) => {
         res.json({message: "added"});
     }).catch((error) => next(error));
@@ -31,9 +34,15 @@ export const update = (req: any, res: Response, next: NextFunction) => {
     fetchNurseById(id).then((data) => {
         let nurse = req.body;
         nurse.user_id = req.user.id;
-
+        console.log('req', req.body)
+        
         if(data.user_id === req.user.id) {
-
+            if(req.file) {
+                nurse.image = req.file.location;
+            } else {
+                nurse.image = data.image
+            }
+            console.log('data', nurse);
             return updateNurse(id, nurse);
             // res.json({message: "can update"})
         } else {
