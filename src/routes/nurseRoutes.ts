@@ -8,11 +8,13 @@ const router: Router = express.Router();
 import imageUpload from '../middlewares/imageUpload'
 // import {imageUpload} from '../middlewares/imageUpload';
 
-import {create, fetchAll, update, deleteNurse} from '../controllers/nurseController';
+import {create, fetchAll, update, deleteNurse, fetchById} from '../controllers/nurseController';
 
 router.get('/', fetchAll)
 
 router.post('/',imageUpload, create);
+
+router.get('/:nurseId', fetchById);
 
 router.put('/:nurseId', imageUpload, update);
 

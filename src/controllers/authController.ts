@@ -22,9 +22,10 @@ export const signin = (req: Request, res: Response, next: NextFunction) => {
             };
 
             var token = jwt.sign(userInfo, secretKey);
-            res.json({token});
+            res.json({id:data.id,  token: token ,email: data.email});
+            // res.json({token});
         }
-        res.json({message: "wrong password"})
+        res.status(401).json({ message: 'Incorrect email or password' });
     })
 }
 

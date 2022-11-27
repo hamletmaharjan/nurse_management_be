@@ -1,6 +1,8 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 
+const cors = require('cors');
+
 // var bodyParser = require('body-parser')
 
 const routes = require("./routes");
@@ -15,6 +17,7 @@ const port = process.env.PORT;
 //   res.send('Express + TypeScript Server edited');
 // });
 
+app.use(cors());
 app.use(express.json());
 app.use('/', routes);
 
