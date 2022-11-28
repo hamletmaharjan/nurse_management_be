@@ -31,3 +31,11 @@ export const updateNurse = (nurseId: number, nurse:object) => {
 export const deleteNurseById = (nurseId: number) => {
     return knex('nurses').where('id', nurseId).del();
 }
+
+export const fetchRoundingManager = () => {
+    return knex('nurses').where('is_rounding_manager',true).first();
+}
+
+// export const updateRoundingManager = (id:number, nurse: object) => {
+//     return knex('nurses').where('id', id).update(nurse);
+// }

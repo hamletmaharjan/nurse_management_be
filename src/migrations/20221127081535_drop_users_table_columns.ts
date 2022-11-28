@@ -12,7 +12,7 @@ export async function up(knex: Knex): Promise<void> {
 
 export async function down(knex: Knex): Promise<void> {
     return knex.schema
-    .createTable('users', function (table) {
+    .alterTable('users', function (table) {
         table.string('first_name', 255).notNullable();
         table.string('last_name', 255).notNullable();
     })

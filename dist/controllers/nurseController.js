@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteNurse = exports.update = exports.fetchById = exports.fetchAll = exports.create = void 0;
+exports.updateRoundingManager = exports.deleteNurse = exports.update = exports.fetchById = exports.fetchAll = exports.create = void 0;
 const nurseServices_1 = require("../services/nurseServices");
 const create = (req, res, next) => {
     let nurse = req.body;
@@ -20,7 +20,7 @@ const create = (req, res, next) => {
 };
 exports.create = create;
 const fetchAll = (req, res, next) => {
-    console.log('fetch');
+    // console.log('fetch')
     (0, nurseServices_1.fetchAllNurses)().then((data) => {
         res.json(data);
     }).catch((error) => next(error));
@@ -37,7 +37,6 @@ const update = (req, res, next) => {
     (0, nurseServices_1.fetchNurseById)(id).then((data) => {
         let nurse = req.body;
         nurse.user_id = req.user.id;
-        console.log('req', req.body);
         if (data.user_id === req.user.id) {
             if (req.file) {
                 nurse.image = req.file.location;
@@ -45,9 +44,7 @@ const update = (req, res, next) => {
             else {
                 nurse.image = data.image;
             }
-            console.log('data', nurse);
             return (0, nurseServices_1.updateNurse)(id, nurse);
-            // res.json({message: "can update"})
         }
         else {
             res.json({ message: "not authorized" });
@@ -55,17 +52,13 @@ const update = (req, res, next) => {
     })
         .then(data => res.json(data))
         .catch(error => next(error));
-    // updateNurse(id, req.body)
 };
 exports.update = update;
 const deleteNurse = (req, res, next) => {
     const id = req.params.nurseId;
-    console.log('here');
     (0, nurseServices_1.fetchNurseById)(id).then((data) => {
-        console.log('here', data);
         if (data.user_id === req.user.id) {
             return (0, nurseServices_1.deleteNurseById)(id);
-            // res.json({message: "can update"})
         }
         else {
             res.json({ message: "not authorized" });
@@ -75,3 +68,20 @@ const deleteNurse = (req, res, next) => {
         .catch(error => next(error));
 };
 exports.deleteNurse = deleteNurse;
+const updateRoundingManager = (req, res, next) => {
+    const id = req.params.nurseId;
+    (0, nurseServices_1.fetchRoundingManager)().then(data => {
+        let roundingManager = Object.assign(Object.assign({}, data), { is_rounding_manager: false });
+        // console.log('rm', roundingManager);
+        return (0, nurseServices_1.updateNurse)(data.id, roundingManager);
+    }).then(data => {
+        return (0, nurseServices_1.fetchNurseById)(id);
+    }).then(data => {
+        let newRoundingManager = Object.assign(Object.assign({}, data), { is_rounding_manager: true });
+        return (0, nurseServices_1.updateNurse)(newRoundingManager.id, newRoundingManager);
+    }).then(data => {
+        return res.json(data);
+    }).catch(error => next(error));
+    // fetchNurseById(id).then((data) => )
+};
+exports.updateRoundingManager = updateRoundingManager;

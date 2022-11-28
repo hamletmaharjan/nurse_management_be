@@ -6,7 +6,8 @@ import {
     fetchAllNurses, 
     updateNurse, 
     fetchNurseById,
-    deleteNurseById
+    deleteNurseById,
+    fetchRoundingManager,
 } from '../services/nurseServices';
 
 
@@ -27,7 +28,7 @@ export const create = (req: any, res: Response, next: NextFunction) => {
 }
 
 export const fetchAll = (req:Request, res: Response, next: NextFunction) => {
-    console.log('fetch')
+    // console.log('fetch')
     fetchAllNurses().then((data) => {
         res.json(data);
     }).catch((error) => next(error));
@@ -74,4 +75,23 @@ export const deleteNurse = (req: any, res: Response, next: NextFunction) => {
     })
     .then(data => res.json(data))
     .catch(error => next(error));
+}
+
+export const updateRoundingManager = (req: any, res: Response, next: NextFunction) => {
+    const id = req.params.nurseId;
+
+    fetchRoundingManager().then(data => {
+        let roundingManager = {...data, is_rounding_manager: false};
+        // console.log('rm', roundingManager);
+        return updateNurse(data.id,roundingManager)
+    }).then(data => {
+        return fetchNurseById(id);
+    }).then(data => {
+        let newRoundingManager = {...data, is_rounding_manager: true};
+        return updateNurse(newRoundingManager.id, newRoundingManager);
+    }).then(data => {
+        return res.json(data);
+    }).catch(error => next(error));
+
+    // fetchNurseById(id).then((data) => )
 }
