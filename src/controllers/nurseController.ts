@@ -46,7 +46,6 @@ export const update = (req: any, res: Response, next: NextFunction) => {
     fetchNurseById(id).then((data) => {
         let nurse = req.body;
         nurse.user_id = req.user.id;
-        console.log('req', req.body)
         
         if(data.user_id === req.user.id) {
             if(req.file) {
@@ -54,28 +53,21 @@ export const update = (req: any, res: Response, next: NextFunction) => {
             } else {
                 nurse.image = data.image
             }
-            console.log('data', nurse);
             return updateNurse(id, nurse);
-            // res.json({message: "can update"})
         } else {
             res.json({message: "not authorized"})
         }
     })
     .then(data => res.json(data))
     .catch(error => next(error));
-
-    // updateNurse(id, req.body)
 }
 
 export const deleteNurse = (req: any, res: Response, next: NextFunction) => {
     const id = req.params.nurseId;
-    console.log('here');
-    fetchNurseById(id).then((data) => {
-        console.log('here', data);
-        if(data.user_id === req.user.id) {
 
+    fetchNurseById(id).then((data) => {
+        if(data.user_id === req.user.id) {
             return deleteNurseById(id);
-            // res.json({message: "can update"})
         } else {
             res.json({message: "not authorized"})
         }

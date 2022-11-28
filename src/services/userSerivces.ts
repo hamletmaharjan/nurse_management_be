@@ -1,6 +1,3 @@
-// const knex:any = require('../db');
-// import {knex} from '../db';
-
 import knex from '../db';
 
 interface User { 

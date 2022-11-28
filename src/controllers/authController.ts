@@ -11,9 +11,7 @@ import {createUser, fetchUserByEmail} from '../services/userSerivces';
 
 export const signin = (req: Request, res: Response, next: NextFunction) => {
     fetchUserByEmail(req.body.email).then((data) => {
-        console.log('data', data);
         if(bcrypt.compareSync(req.body.password, data.password)){
-            // res.json({message:"success"});
 
             let userInfo = {
                 id: data.id,
@@ -23,25 +21,20 @@ export const signin = (req: Request, res: Response, next: NextFunction) => {
 
             var token = jwt.sign(userInfo, secretKey);
             res.json({id:data.id,  token: token ,email: data.email});
-            // res.json({token});
         }
         res.status(401).json({ message: 'Incorrect email or password' });
     })
 }
 
 export const signup = (req: Request, res: Response, next:NextFunction) => {
-    // console.log(req.body);
     let user = req.body;
 
     user.password =  bcrypt.hashSync(req.body.password, saltRounds);
     
     createUser(user).then((data) => { 
-        // Do something with users
         console.log(data);
         res.json({data});
       }).catch((error) => {
         next(error);
       });
-
-    // res.send('singupp here');
 }

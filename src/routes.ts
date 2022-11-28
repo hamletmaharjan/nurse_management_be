@@ -9,7 +9,7 @@ const authRoutes = require('./routes/authRoutes');
 import {verification} from './middlewares/verification';
 
 router.get('/', (req,res) => {
-    res.send('Hello World');
+    res.json({message:'Hello World'});
 })
 
 router.use('/auth', authRoutes);

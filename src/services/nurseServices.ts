@@ -1,6 +1,3 @@
-// const knex:any = require('../db');
-// import {knex} from '../db';
-
 import knex from '../db';
 
 interface Nurse { 
@@ -34,7 +31,3 @@ export const updateNurse = (nurseId: number, nurse:object) => {
 export const deleteNurseById = (nurseId: number) => {
     return knex('nurses').where('id', nurseId).del();
 }
-
-// export const fetchUserByEmail = (email: string) => {
-//     return knex('users').where('email', email).first();
-// }

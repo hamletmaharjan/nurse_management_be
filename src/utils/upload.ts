@@ -16,7 +16,7 @@ const storage = multerS3({
     s3: s3,
     bucket: 'hamlet-bucket',
     acl: 'public-read',
-    metadata: function (req, file, cb) {
+    metadata: function (req:any, file:any, cb:any) {
       cb(null, {fieldName: file.fieldname});
     },
     key: function (_req: any, file: {mimetype: string}, cb: (arg0: null, arg1: string) => void) {

@@ -10,7 +10,7 @@ const nurseRoutes = require('./routes/nurseRoutes');
 const authRoutes = require('./routes/authRoutes');
 const verification_1 = require("./middlewares/verification");
 router.get('/', (req, res) => {
-    res.send('Hello World');
+    res.json({ message: 'Hello World' });
 });
 router.use('/auth', authRoutes);
 router.use('/nurses', verification_1.verification, nurseRoutes);
