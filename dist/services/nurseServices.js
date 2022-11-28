@@ -10,7 +10,7 @@ const createNurse = (nurse) => {
 };
 exports.createNurse = createNurse;
 const fetchAllNurses = () => {
-    return db_1.default.select().table('nurses');
+    return db_1.default.select().table('nurses').orderBy('full_name');
 };
 exports.fetchAllNurses = fetchAllNurses;
 const fetchNurseById = (nurseId) => {

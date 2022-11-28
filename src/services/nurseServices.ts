@@ -17,7 +17,7 @@ export const createNurse = (nurse: Nurse) => {
 } 
 
 export const fetchAllNurses = () => {
-    return knex.select().table('nurses');
+    return knex.select().table('nurses').orderBy('full_name');
 }
 
 export const fetchNurseById = (nurseId: number) => {

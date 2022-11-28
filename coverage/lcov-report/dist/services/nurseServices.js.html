@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">73.91% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/20</span>
+                <span class='fraction'>17/23</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">14.28% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/6</span>
+                <span class='fraction'>1/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">73.91% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/20</span>
+                <span class='fraction'>17/23</span>
             </div>
         
             
@@ -95,14 +95,18 @@
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -128,20 +132,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
-// const knex:any = require('../db');
-// import {knex} from '../db';
 var __importDefault = (this &amp;&amp; this.__importDefault) || function (mod) {
     return (mod &amp;&amp; mod.__esModule) ? mod : <span class="branch-1 cbranch-no" title="branch not covered" >{ "default": mod };</span>
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteNurseById = exports.updateNurse = exports.fetchNurseById = exports.fetchAllNurses = exports.createNurse = void 0;
+exports.fetchRoundingManager = exports.deleteNurseById = exports.updateNurse = exports.fetchNurseById = exports.fetchAllNurses = exports.createNurse = void 0;
 const db_1 = __importDefault(require("../db"));
 const createNurse = <span class="fstat-no" title="function not covered" >(n</span>urse) =&gt; {
 <span class="cstat-no" title="statement not covered" >    return (0, db_1.default)('nurses').insert(nurse);</span>
 };
 exports.createNurse = createNurse;
 const fetchAllNurses = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >    return db_1.default.select().table('nurses');</span>
+<span class="cstat-no" title="statement not covered" >    return db_1.default.select().table('nurses').orderBy('full_name');</span>
 };
 exports.fetchAllNurses = fetchAllNurses;
 const fetchNurseById = <span class="fstat-no" title="function not covered" >(n</span>urseId) =&gt; {
@@ -156,8 +158,12 @@ const deleteNurseById = <span class="fstat-no" title="function not covered" >(n<
 <span class="cstat-no" title="statement not covered" >    return (0, db_1.default)('nurses').where('id', nurseId).del();</span>
 };
 exports.deleteNurseById = deleteNurseById;
-// export const fetchUserByEmail = (email: string) =&gt; {
-//     return knex('users').where('email', email).first();
+const fetchRoundingManager = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >    return (0, db_1.default)('nurses').where('is_rounding_manager', true).first();</span>
+};
+exports.fetchRoundingManager = fetchRoundingManager;
+// export const updateRoundingManager = (id:number, nurse: object) =&gt; {
+//     return knex('nurses').where('id', id).update(nurse);
 // }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -166,7 +172,7 @@ exports.deleteNurseById = deleteNurseById;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-27T16:38:59.273Z
+                at 2022-11-28T08:57:00.751Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
