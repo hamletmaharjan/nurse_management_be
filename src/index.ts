@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 const cors = require('cors');
 
-const routes = require("./routes");
+import routes from "./routes";
 
 dotenv.config();
 

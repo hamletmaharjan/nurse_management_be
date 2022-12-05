@@ -19,5 +19,5 @@ router.use('/nurses', verification, nurseRoutes);
 router.use('/users', userRoutes);
 
 
-module.exports = router;
+export default router;
 

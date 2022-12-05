@@ -6,8 +6,8 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const secretKey = 'hidethis';
-import {createUser, fetchUserByEmail} from '../services/userSerivces';
 
+import {createUser, fetchUserByEmail} from '../services/userSerivces';
 
 export const signin = (req: Request, res: Response, next: NextFunction) => {
     fetchUserByEmail(req.body.email).then((data) => {
@@ -32,7 +32,6 @@ export const signup = (req: Request, res: Response, next:NextFunction) => {
     user.password =  bcrypt.hashSync(req.body.password, saltRounds);
     
     createUser(user).then((data) => { 
-        console.log(data);
         res.json({data});
       }).catch((error) => {
         next(error);

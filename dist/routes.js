@@ -15,4 +15,4 @@ router.get('/', (req, res) => {
 router.use('/auth', authRoutes);
 router.use('/nurses', verification_1.verification, nurseRoutes);
 router.use('/users', userRoutes);
-module.exports = router;
+exports.default = router;

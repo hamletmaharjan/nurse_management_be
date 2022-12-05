@@ -13,14 +13,12 @@ const create = (req, res, next) => {
     if (req.file) {
         nurse.image = req.file.location;
     }
-    // console.log("nurse",req.file);
     (0, nurseServices_1.createNurse)(nurse).then((data) => {
-        res.json({ message: "added" });
+        res.json(data);
     }).catch((error) => next(error));
 };
 exports.create = create;
 const fetchAll = (req, res, next) => {
-    // console.log('fetch')
     (0, nurseServices_1.fetchAllNurses)().then((data) => {
         res.json(data);
     }).catch((error) => next(error));

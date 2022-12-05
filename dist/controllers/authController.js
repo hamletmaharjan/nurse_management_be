@@ -25,7 +25,6 @@ const signup = (req, res, next) => {
     let user = req.body;
     user.password = bcrypt.hashSync(req.body.password, saltRounds);
     (0, userSerivces_1.createUser)(user).then((data) => {
-        console.log(data);
         res.json({ data });
     }).catch((error) => {
         next(error);

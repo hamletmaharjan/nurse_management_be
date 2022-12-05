@@ -1,6 +1,5 @@
 import  {Request, Response, NextFunction } from 'express';
 
-
 import {
     createNurse, 
     fetchAllNurses, 
@@ -21,14 +20,13 @@ export const create = (req: any, res: Response, next: NextFunction) => {
     if(req.file) {
         nurse.image = req.file.location;
     }
-    // console.log("nurse",req.file);
+
     createNurse(nurse).then((data) => {
-        res.json({message: "added"});
+        res.json(data);
     }).catch((error) => next(error));
 }
 
 export const fetchAll = (req:Request, res: Response, next: NextFunction) => {
-    // console.log('fetch')
     fetchAllNurses().then((data) => {
         res.json(data);
     }).catch((error) => next(error));
