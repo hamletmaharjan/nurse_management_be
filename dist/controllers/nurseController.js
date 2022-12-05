@@ -1,7 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateRoundingManager = exports.deleteNurse = exports.update = exports.fetchById = exports.fetchAll = exports.create = void 0;
-const fs = require('fs');
+const fs_1 = __importDefault(require("fs"));
 const path = 'uploads/images';
 const nurseServices_1 = require("../services/nurseServices");
 const create = (req, res, next) => {
@@ -40,9 +43,9 @@ const update = (req, res, next) => {
         nurse.user_id = req.user.id;
         if (data.user_id === req.user.id) {
             if (req.file) {
-                nurse.image = req.file.location;
+                nurse.image = req.file.filename;
                 try {
-                    fs.unlinkSync(path + '/' + data.image);
+                    fs_1.default.unlinkSync(path + '/' + data.image);
                 }
                 catch (err) {
                     console.error(err);
@@ -67,7 +70,7 @@ const deleteNurse = (req, res, next) => {
         if (data.user_id === req.user.id) {
             if (data.image) {
                 try {
-                    fs.unlinkSync(path + '/' + data.image);
+                    fs_1.default.unlinkSync(path + '/' + data.image);
                 }
                 catch (err) {
                     console.error(err);

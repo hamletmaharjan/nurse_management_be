@@ -1,8 +1,8 @@
 import {Request, Response,NextFunction} from 'express';
 
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
-const secretKey = 'hidethis';
+const secretKey = process.env.TOKEN_SECRET_KEY || 'hidethis';
 
 export const verification = (req: any, res: Response, next:NextFunction) =>{
     if (!req.headers || !req.headers['authorization']) {

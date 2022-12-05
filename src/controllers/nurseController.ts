@@ -1,6 +1,6 @@
 import  {Request, Response, NextFunction } from 'express';
 
-const fs = require('fs');
+import fs from 'fs';
 
 const path = 'uploads/images';
 
@@ -53,7 +53,7 @@ export const update = (req: any, res: Response, next: NextFunction) => {
         
         if(data.user_id === req.user.id) {
             if(req.file) {
-                nurse.image = req.file.location;
+                nurse.image = req.file.filename;
                 try {
                     fs.unlinkSync(path+ '/' +data.image);
                 } catch(err) {

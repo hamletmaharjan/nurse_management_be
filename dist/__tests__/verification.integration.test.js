@@ -18,7 +18,6 @@ describe('Authorization middleware', () => {
         mockRequest = {};
         mockResponse = {
             json: jest.fn(),
-            // status: jest.fn().mockReturnThis(),
         };
     });
     test('without headers', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -49,6 +48,5 @@ describe('Authorization middleware', () => {
         };
         (0, verification_1.verification)(mockRequest, mockResponse, nextFunction);
         expect(mockResponse.json).toBeCalledWith(expectedResponse);
-        // expect(nextFunction).toBeCalledTimes(1);
     }));
 });
