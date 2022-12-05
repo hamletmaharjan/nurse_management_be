@@ -12,6 +12,7 @@ const port = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static('uploads'));
 app.use('/', routes);
 
 app.listen(port, () => {

@@ -10,11 +10,24 @@ const createNurse = (nurse) => {
 };
 exports.createNurse = createNurse;
 const fetchAllNurses = () => {
-    return db_1.default.select().table('nurses').orderBy('full_name');
+    return db_1.default.select().table('nurses').orderBy('full_name')
+        .then((nurses) => {
+        let result = nurses.map(function (nurse) {
+            nurse.image = "images/" + nurse.image;
+            return nurse;
+        });
+        return result;
+    });
+    ;
 };
 exports.fetchAllNurses = fetchAllNurses;
 const fetchNurseById = (nurseId) => {
-    return (0, db_1.default)('nurses').where('id', nurseId).first();
+    return (0, db_1.default)('nurses').where('id', nurseId).first()
+        .then((nurse) => {
+        let result = nurse;
+        result.image = "images/" + result.image;
+        return result;
+    });
 };
 exports.fetchNurseById = fetchNurseById;
 const updateNurse = (nurseId, nurse) => {

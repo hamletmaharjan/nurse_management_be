@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateRoundingManager = exports.deleteNurse = exports.update = exports.fetchById = exports.fetchAll = exports.create = void 0;
+const fs = require('fs');
+const path = 'uploads/images';
 const nurseServices_1 = require("../services/nurseServices");
 const create = (req, res, next) => {
     let nurse = req.body;
@@ -11,7 +13,8 @@ const create = (req, res, next) => {
         nurse.user_id = 6;
     }
     if (req.file) {
-        nurse.image = req.file.location;
+        nurse.image = req.file.filename;
+        // nurse.image = req.file.location;
     }
     (0, nurseServices_1.createNurse)(nurse).then((data) => {
         res.json(data);
@@ -38,6 +41,12 @@ const update = (req, res, next) => {
         if (data.user_id === req.user.id) {
             if (req.file) {
                 nurse.image = req.file.location;
+                try {
+                    fs.unlinkSync(path + '/' + data.image);
+                }
+                catch (err) {
+                    console.error(err);
+                }
             }
             else {
                 nurse.image = data.image;
@@ -56,6 +65,14 @@ const deleteNurse = (req, res, next) => {
     const id = req.params.nurseId;
     (0, nurseServices_1.fetchNurseById)(id).then((data) => {
         if (data.user_id === req.user.id) {
+            if (data.image) {
+                try {
+                    fs.unlinkSync(path + '/' + data.image);
+                }
+                catch (err) {
+                    console.error(err);
+                }
+            }
             return (0, nurseServices_1.deleteNurseById)(id);
         }
         else {
@@ -70,7 +87,6 @@ const updateRoundingManager = (req, res, next) => {
     const id = req.params.nurseId;
     (0, nurseServices_1.fetchRoundingManager)().then(data => {
         let roundingManager = Object.assign(Object.assign({}, data), { is_rounding_manager: false });
-        // console.log('rm', roundingManager);
         return (0, nurseServices_1.updateNurse)(data.id, roundingManager);
     }).then(data => {
         return (0, nurseServices_1.fetchNurseById)(id);
@@ -80,6 +96,5 @@ const updateRoundingManager = (req, res, next) => {
     }).then(data => {
         return res.json(data);
     }).catch(error => next(error));
-    // fetchNurseById(id).then((data) => )
 };
 exports.updateRoundingManager = updateRoundingManager;

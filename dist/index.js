@@ -12,6 +12,7 @@ const app = (0, express_1.default)();
 const port = process.env.PORT;
 app.use(cors());
 app.use(express_1.default.json());
+app.use(express_1.default.static('uploads'));
 app.use('/', routes_1.default);
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

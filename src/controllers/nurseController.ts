@@ -1,5 +1,9 @@
 import  {Request, Response, NextFunction } from 'express';
 
+const fs = require('fs');
+
+const path = 'uploads/images';
+
 import {
     createNurse, 
     fetchAllNurses, 
@@ -18,7 +22,8 @@ export const create = (req: any, res: Response, next: NextFunction) => {
         nurse.user_id = 6;
     }
     if(req.file) {
-        nurse.image = req.file.location;
+        nurse.image = req.file.filename;
+        // nurse.image = req.file.location;
     }
 
     createNurse(nurse).then((data) => {
@@ -49,6 +54,11 @@ export const update = (req: any, res: Response, next: NextFunction) => {
         if(data.user_id === req.user.id) {
             if(req.file) {
                 nurse.image = req.file.location;
+                try {
+                    fs.unlinkSync(path+ '/' +data.image);
+                } catch(err) {
+                    console.error(err)
+                }
             } else {
                 nurse.image = data.image
             }
@@ -66,6 +76,13 @@ export const deleteNurse = (req: any, res: Response, next: NextFunction) => {
 
     fetchNurseById(id).then((data) => {
         if(data.user_id === req.user.id) {
+            if(data.image) {
+                try {
+                    fs.unlinkSync(path+ '/' +data.image);
+                } catch(err) {
+                    console.error(err)
+                }
+            }
             return deleteNurseById(id);
         } else {
             res.json({message: "not authorized"})
@@ -80,7 +97,6 @@ export const updateRoundingManager = (req: any, res: Response, next: NextFunctio
 
     fetchRoundingManager().then(data => {
         let roundingManager = {...data, is_rounding_manager: false};
-        // console.log('rm', roundingManager);
         return updateNurse(data.id,roundingManager)
     }).then(data => {
         return fetchNurseById(id);
@@ -91,5 +107,4 @@ export const updateRoundingManager = (req: any, res: Response, next: NextFunctio
         return res.json(data);
     }).catch(error => next(error));
 
-    // fetchNurseById(id).then((data) => )
 }

@@ -17,11 +17,23 @@ export const createNurse = (nurse: Nurse) => {
 } 
 
 export const fetchAllNurses = () => {
-    return knex.select().table('nurses').orderBy('full_name');
+    return knex.select().table('nurses').orderBy('full_name')
+    .then((nurses)=> {
+	    let result = nurses.map(function (nurse) { 
+	        nurse.image = "images/" + nurse.image;
+	        return nurse;
+	    });
+	    return result;
+  	});;
 }
 
 export const fetchNurseById = (nurseId: number) => {
-    return knex('nurses').where('id', nurseId).first();
+    return knex('nurses').where('id', nurseId).first()
+    .then((nurse) => {
+      let result = nurse;
+      result.image = "images/" + result.image;
+      return result;
+  });
 }
 
 export const updateNurse = (nurseId: number, nurse:object) => {
