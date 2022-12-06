@@ -48,6 +48,10 @@ export const fetchRoundingManager = () => {
     return knex('nurses').where('is_rounding_manager',true).first();
 }
 
+export const fetchUnmodifiedNurseById = (nurseId: number) => {
+    return knex('nurses').where('id', nurseId).first()
+};
+
 // export const updateRoundingManager = (id:number, nurse: object) => {
 //     return knex('nurses').where('id', id).update(nurse);
 // }

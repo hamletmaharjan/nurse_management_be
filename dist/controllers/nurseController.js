@@ -45,7 +45,7 @@ const update = (req, res, next) => {
             if (req.file) {
                 nurse.image = req.file.filename;
                 try {
-                    fs_1.default.unlinkSync(path + '/' + data.image);
+                    fs_1.default.unlinkSync('uploads/' + data.image);
                 }
                 catch (err) {
                     console.error(err);
@@ -70,7 +70,7 @@ const deleteNurse = (req, res, next) => {
         if (data.user_id === req.user.id) {
             if (data.image) {
                 try {
-                    fs_1.default.unlinkSync(path + '/' + data.image);
+                    fs_1.default.unlinkSync('uploads/' + data.image);
                 }
                 catch (err) {
                     console.error(err);
@@ -92,7 +92,7 @@ const updateRoundingManager = (req, res, next) => {
         let roundingManager = Object.assign(Object.assign({}, data), { is_rounding_manager: false });
         return (0, nurseServices_1.updateNurse)(data.id, roundingManager);
     }).then(data => {
-        return (0, nurseServices_1.fetchNurseById)(id);
+        return (0, nurseServices_1.fetchUnmodifiedNurseById)(id);
     }).then(data => {
         let newRoundingManager = Object.assign(Object.assign({}, data), { is_rounding_manager: true });
         return (0, nurseServices_1.updateNurse)(newRoundingManager.id, newRoundingManager);
