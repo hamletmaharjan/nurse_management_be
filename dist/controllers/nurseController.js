@@ -38,14 +38,14 @@ const fetchById = (req, res, next) => {
 exports.fetchById = fetchById;
 const update = (req, res, next) => {
     const id = req.params.nurseId;
-    (0, nurseServices_1.fetchNurseById)(id).then((data) => {
+    (0, nurseServices_1.fetchUnmodifiedNurseById)(id).then((data) => {
         let nurse = req.body;
         nurse.user_id = req.user.id;
         if (data.user_id === req.user.id) {
             if (req.file) {
                 nurse.image = req.file.filename;
                 try {
-                    fs_1.default.unlinkSync('uploads/' + data.image);
+                    fs_1.default.unlinkSync(path + '/' + data.image);
                 }
                 catch (err) {
                     console.error(err);
@@ -66,11 +66,11 @@ const update = (req, res, next) => {
 exports.update = update;
 const deleteNurse = (req, res, next) => {
     const id = req.params.nurseId;
-    (0, nurseServices_1.fetchNurseById)(id).then((data) => {
+    (0, nurseServices_1.fetchUnmodifiedNurseById)(id).then((data) => {
         if (data.user_id === req.user.id) {
             if (data.image) {
                 try {
-                    fs_1.default.unlinkSync('uploads/' + data.image);
+                    fs_1.default.unlinkSync(path + '/' + data.image);
                 }
                 catch (err) {
                     console.error(err);
