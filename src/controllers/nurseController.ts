@@ -97,12 +97,18 @@ export const updateRoundingManager = (req: any, res: Response, next: NextFunctio
     const id = req.params.nurseId;
 
     fetchRoundingManager().then(data => {
+        if(!data || data.id == id) {
+            console.log('return');
+            return;
+        }
+        
         let roundingManager = {...data, is_rounding_manager: false};
+
         return updateNurse(data.id,roundingManager)
     }).then(data => {
         return fetchUnmodifiedNurseById(id);
     }).then(data => {
-        let newRoundingManager = {...data, is_rounding_manager: true};
+        let newRoundingManager = {...data, is_rounding_manager: !data.is_rounding_manager};
         return updateNurse(newRoundingManager.id, newRoundingManager);
     }).then(data => {
         return res.json(data);

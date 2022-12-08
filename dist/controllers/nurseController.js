@@ -89,12 +89,16 @@ exports.deleteNurse = deleteNurse;
 const updateRoundingManager = (req, res, next) => {
     const id = req.params.nurseId;
     (0, nurseServices_1.fetchRoundingManager)().then(data => {
+        if (!data || data.id == id) {
+            console.log('return');
+            return;
+        }
         let roundingManager = Object.assign(Object.assign({}, data), { is_rounding_manager: false });
         return (0, nurseServices_1.updateNurse)(data.id, roundingManager);
     }).then(data => {
         return (0, nurseServices_1.fetchUnmodifiedNurseById)(id);
     }).then(data => {
-        let newRoundingManager = Object.assign(Object.assign({}, data), { is_rounding_manager: true });
+        let newRoundingManager = Object.assign(Object.assign({}, data), { is_rounding_manager: !data.is_rounding_manager });
         return (0, nurseServices_1.updateNurse)(newRoundingManager.id, newRoundingManager);
     }).then(data => {
         return res.json(data);
