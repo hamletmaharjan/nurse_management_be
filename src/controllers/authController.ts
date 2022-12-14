@@ -1,11 +1,11 @@
 import  {Request, Response, NextFunction } from 'express';
 
-var jwt = require('jsonwebtoken');
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
-const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-const secretKey = 'hidethis';
+const secretKey = process.env.TOKEN_SECRET_KEY || 'hidethis';
 
 import {createUser, fetchUserByEmail} from '../services/userSerivces';
 

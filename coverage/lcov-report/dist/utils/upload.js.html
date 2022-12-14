@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/14</span>
+                <span class='fraction'>8/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/14</span>
+                <span class='fraction'>8/12</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -85,35 +85,23 @@
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -121,31 +109,25 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 var __importDefault = (this &amp;&amp; this.__importDefault) || function (mod) {
-    return (mod &amp;&amp; mod.__esModule) ? mod : <span class="branch-1 cbranch-no" title="branch not covered" >{ "default": mod };</span>
+    return (mod &amp;&amp; mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const imageValidator_1 = __importDefault(require("../validators/imageValidator"));
-const multer = require('multer');
-const multerS3 = require('multer-s3');
-const aws = require('aws-sdk');
-aws.config.update({
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    region: 'us-east-1'
-});
-const s3 = new aws.S3({ region: 'us-east-1' });
-const storage = multerS3({
-    s3: s3,
-    bucket: 'hamlet-bucket',
-    acl: 'public-read',
-    metadata: <span class="fstat-no" title="function not covered" >fu</span>nction (req, file, cb) {
-<span class="cstat-no" title="statement not covered" >        cb(null, { fieldName: file.fieldname });</span>
+const multer_1 = __importDefault(require("multer"));
+/**
+ * NOTE: For disk storage.
+ */
+const storage = multer_1.default.diskStorage({
+    destination: <span class="fstat-no" title="function not covered" >fu</span>nction (req, file, cb) {
+<span class="cstat-no" title="statement not covered" >        cb(null, 'uploads/images');</span>
     },
-    key: <span class="fstat-no" title="function not covered" >fu</span>nction (_req, file, cb) {
-<span class="cstat-no" title="statement not covered" >        cb(null, `${Date.now().toString()}.${file.mimetype.split('/')[1]}`);</span>
+    filename: <span class="fstat-no" title="function not covered" >fu</span>nction (req, file, cb) {
+        let fileName = <span class="cstat-no" title="statement not covered" >file.originalname;</span>
+        let splitted = <span class="cstat-no" title="statement not covered" >fileName.split('.');</span>
+<span class="cstat-no" title="statement not covered" >        cb(null, file.fieldname + '-' + Date.now() + '.' + splitted[splitted.length - 1]);</span>
     }
 });
-const upload = multer({ storage: storage, fileFilter: imageValidator_1.default });
+const upload = (0, multer_1.default)({ storage: storage, fileFilter: imageValidator_1.default });
 exports.default = upload;
 &nbsp;</pre></td></tr></table></pre>
 
@@ -154,7 +136,7 @@ exports.default = upload;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-28T08:57:00.751Z
+                at 2022-12-07T05:56:52.804Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

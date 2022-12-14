@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.91% </span>
+                <span class="strong">57.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/23</span>
+                <span class='fraction'>19/33</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.28% </span>
+                <span class="strong">9.09% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/7</span>
+                <span class='fraction'>1/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.91% </span>
+                <span class="strong">57.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/23</span>
+                <span class='fraction'>19/33</span>
             </div>
         
             
@@ -97,7 +97,24 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -110,6 +127,23 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -136,18 +170,31 @@ var __importDefault = (this &amp;&amp; this.__importDefault) || function (mod) {
     return (mod &amp;&amp; mod.__esModule) ? mod : <span class="branch-1 cbranch-no" title="branch not covered" >{ "default": mod };</span>
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchRoundingManager = exports.deleteNurseById = exports.updateNurse = exports.fetchNurseById = exports.fetchAllNurses = exports.createNurse = void 0;
+exports.fetchUnmodifiedNurseById = exports.fetchRoundingManager = exports.deleteNurseById = exports.updateNurse = exports.fetchNurseById = exports.fetchAllNurses = exports.createNurse = void 0;
 const db_1 = __importDefault(require("../db"));
 const createNurse = <span class="fstat-no" title="function not covered" >(n</span>urse) =&gt; {
 <span class="cstat-no" title="statement not covered" >    return (0, db_1.default)('nurses').insert(nurse);</span>
 };
 exports.createNurse = createNurse;
 const fetchAllNurses = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >    return db_1.default.select().table('nurses').orderBy('full_name');</span>
+<span class="cstat-no" title="statement not covered" >    return db_1.default.select().table('nurses').orderBy('full_name')</span>
+        .then(<span class="fstat-no" title="function not covered" >(n</span>urses) =&gt; {
+        let result = <span class="cstat-no" title="statement not covered" >nurses.map(<span class="fstat-no" title="function not covered" >fu</span>nction (nurse) {</span>
+<span class="cstat-no" title="statement not covered" >            nurse.image = "images/" + nurse.image;</span>
+<span class="cstat-no" title="statement not covered" >            return nurse;</span>
+        });
+<span class="cstat-no" title="statement not covered" >        return result;</span>
+    });
+    ;
 };
 exports.fetchAllNurses = fetchAllNurses;
 const fetchNurseById = <span class="fstat-no" title="function not covered" >(n</span>urseId) =&gt; {
-<span class="cstat-no" title="statement not covered" >    return (0, db_1.default)('nurses').where('id', nurseId).first();</span>
+<span class="cstat-no" title="statement not covered" >    return (0, db_1.default)('nurses').where('id', nurseId).first()</span>
+        .then(<span class="fstat-no" title="function not covered" >(n</span>urse) =&gt; {
+        let result = <span class="cstat-no" title="statement not covered" >nurse;</span>
+<span class="cstat-no" title="statement not covered" >        result.image = "images/" + result.image;</span>
+<span class="cstat-no" title="statement not covered" >        return result;</span>
+    });
 };
 exports.fetchNurseById = fetchNurseById;
 const updateNurse = <span class="fstat-no" title="function not covered" >(n</span>urseId, nurse) =&gt; {
@@ -162,6 +209,10 @@ const fetchRoundingManager = <span class="fstat-no" title="function not covered"
 <span class="cstat-no" title="statement not covered" >    return (0, db_1.default)('nurses').where('is_rounding_manager', true).first();</span>
 };
 exports.fetchRoundingManager = fetchRoundingManager;
+const fetchUnmodifiedNurseById = <span class="fstat-no" title="function not covered" >(n</span>urseId) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return (0, db_1.default)('nurses').where('id', nurseId).first();</span>
+};
+exports.fetchUnmodifiedNurseById = fetchUnmodifiedNurseById;
 // export const updateRoundingManager = (id:number, nurse: object) =&gt; {
 //     return knex('nurses').where('id', id).update(nurse);
 // }
@@ -172,7 +223,7 @@ exports.fetchRoundingManager = fetchRoundingManager;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-28T08:57:00.751Z
+                at 2022-12-07T05:56:52.804Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

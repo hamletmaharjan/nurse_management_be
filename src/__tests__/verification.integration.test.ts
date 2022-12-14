@@ -10,7 +10,6 @@ describe('Authorization middleware', () => {
         mockRequest = {};
         mockResponse = {
             json: jest.fn(),
-            // status: jest.fn().mockReturnThis(),
           };
     });
 
@@ -49,6 +48,5 @@ describe('Authorization middleware', () => {
         tokenVerification(mockRequest as Request, mockResponse as Response, nextFunction);
 
         expect(mockResponse.json).toBeCalledWith(expectedResponse);
-        // expect(nextFunction).toBeCalledTimes(1);
     });
 });

@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 
-const cors = require('cors');
+import cors from 'cors';
 
 import routes from "./routes";
 
@@ -12,6 +12,7 @@ const port = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static('uploads'));
 app.use('/', routes);
 
 app.listen(port, () => {

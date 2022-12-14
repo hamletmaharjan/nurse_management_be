@@ -1,6 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateRoundingManager = exports.deleteNurse = exports.update = exports.fetchById = exports.fetchAll = exports.create = void 0;
+const fs_1 = __importDefault(require("fs"));
+const path = 'uploads/images';
 const nurseServices_1 = require("../services/nurseServices");
 const create = (req, res, next) => {
     let nurse = req.body;
@@ -11,7 +16,8 @@ const create = (req, res, next) => {
         nurse.user_id = 6;
     }
     if (req.file) {
-        nurse.image = req.file.location;
+        nurse.image = req.file.filename;
+        // nurse.image = req.file.location;
     }
     (0, nurseServices_1.createNurse)(nurse).then((data) => {
         res.json(data);
@@ -32,12 +38,18 @@ const fetchById = (req, res, next) => {
 exports.fetchById = fetchById;
 const update = (req, res, next) => {
     const id = req.params.nurseId;
-    (0, nurseServices_1.fetchNurseById)(id).then((data) => {
+    (0, nurseServices_1.fetchUnmodifiedNurseById)(id).then((data) => {
         let nurse = req.body;
         nurse.user_id = req.user.id;
         if (data.user_id === req.user.id) {
             if (req.file) {
-                nurse.image = req.file.location;
+                nurse.image = req.file.filename;
+                try {
+                    fs_1.default.unlinkSync(path + '/' + data.image);
+                }
+                catch (err) {
+                    console.error(err);
+                }
             }
             else {
                 nurse.image = data.image;
@@ -54,8 +66,16 @@ const update = (req, res, next) => {
 exports.update = update;
 const deleteNurse = (req, res, next) => {
     const id = req.params.nurseId;
-    (0, nurseServices_1.fetchNurseById)(id).then((data) => {
+    (0, nurseServices_1.fetchUnmodifiedNurseById)(id).then((data) => {
         if (data.user_id === req.user.id) {
+            if (data.image) {
+                try {
+                    fs_1.default.unlinkSync(path + '/' + data.image);
+                }
+                catch (err) {
+                    console.error(err);
+                }
+            }
             return (0, nurseServices_1.deleteNurseById)(id);
         }
         else {
@@ -69,17 +89,19 @@ exports.deleteNurse = deleteNurse;
 const updateRoundingManager = (req, res, next) => {
     const id = req.params.nurseId;
     (0, nurseServices_1.fetchRoundingManager)().then(data => {
+        if (!data || data.id == id) {
+            console.log('return');
+            return;
+        }
         let roundingManager = Object.assign(Object.assign({}, data), { is_rounding_manager: false });
-        // console.log('rm', roundingManager);
         return (0, nurseServices_1.updateNurse)(data.id, roundingManager);
     }).then(data => {
-        return (0, nurseServices_1.fetchNurseById)(id);
+        return (0, nurseServices_1.fetchUnmodifiedNurseById)(id);
     }).then(data => {
-        let newRoundingManager = Object.assign(Object.assign({}, data), { is_rounding_manager: true });
+        let newRoundingManager = Object.assign(Object.assign({}, data), { is_rounding_manager: !data.is_rounding_manager });
         return (0, nurseServices_1.updateNurse)(newRoundingManager.id, newRoundingManager);
     }).then(data => {
         return res.json(data);
     }).catch(error => next(error));
-    // fetchNurseById(id).then((data) => )
 };
 exports.updateRoundingManager = updateRoundingManager;
