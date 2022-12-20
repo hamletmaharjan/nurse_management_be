@@ -15,8 +15,10 @@ app.use(express.json());
 app.use(express.static('uploads'));
 app.use('/', routes);
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+  });
+}
 
 export default app;

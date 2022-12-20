@@ -20,7 +20,9 @@ const signin = (req, res, next) => {
             var token = jsonwebtoken_1.default.sign(userInfo, secretKey);
             res.json({ id: data.id, token: token, email: data.email });
         }
-        res.status(401).json({ message: 'Incorrect email or password' });
+        else {
+            res.status(401).json({ message: 'Incorrect email or password' });
+        }
     });
 };
 exports.signin = signin;
