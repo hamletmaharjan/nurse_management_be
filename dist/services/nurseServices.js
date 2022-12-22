@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchUnmodifiedNurseById = exports.fetchRoundingManager = exports.deleteNurseById = exports.updateNurse = exports.fetchNurseById = exports.fetchAllNurses = exports.createNurse = void 0;
 const db_1 = __importDefault(require("../db"));
 const createNurse = (nurse) => {
-    return (0, db_1.default)('nurses').insert(nurse);
+    return (0, db_1.default)('nurses').insert(nurse).returning('*');
 };
 exports.createNurse = createNurse;
 const fetchAllNurses = () => {
@@ -31,7 +31,7 @@ const fetchNurseById = (nurseId) => {
 };
 exports.fetchNurseById = fetchNurseById;
 const updateNurse = (nurseId, nurse) => {
-    return (0, db_1.default)('nurses').where('id', nurseId).update(nurse);
+    return (0, db_1.default)('nurses').where('id', nurseId).update(nurse).returning('*').then(data => data[0]);
 };
 exports.updateNurse = updateNurse;
 const deleteNurseById = (nurseId) => {

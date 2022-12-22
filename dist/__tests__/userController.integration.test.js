@@ -16,8 +16,6 @@ const supertest_1 = __importDefault(require("supertest"));
 const index_1 = __importDefault(require("../index"));
 const userSerivces_1 = require("../services/userSerivces");
 describe('Users', () => {
-    let signupUser;
-    let loggedInUser;
     // Tests User Login
     describe('User Login', () => {
         it('should login user', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -53,77 +51,5 @@ describe('Users', () => {
                 message: 'Incorrect email or password'
             });
         }));
-        //   it('should fail login user', async () => {
-        //     await request(app)
-        //       .post('/api/v1/login')
-        //       .set('Accept', 'application/json')
-        //       .send({
-        //         email: '',
-        //         password: ''
-        //       })
-        //       .expect(400);
-        //   });
-        // });
-        // // Test User Sign Up
-        // describe('User Sign Up', () => {
-        //   it('should sign up user', async () => {
-        //     signupUser = await request(app)
-        //       .post('/api/v1/signup')
-        //       .set('Accept', 'application/json')
-        //       .send({
-        //         email: 'biswas.test12453@gmail.com',
-        //         password: 'hello',
-        //         firstName: 'test',
-        //         lastName: 'user'
-        //       })
-        //       .expect(201);
-        //     // Assert
-        //     const user = await fetchById(signupUser.body.data.id);
-        //     expect(signupUser.body).toMatchObject({
-        //       status: 201,
-        //       data: {
-        //         id: user.data.id,
-        //         email: user.data.email,
-        //         firstName: user.data.firstName,
-        //         lastName: user.data.lastName,
-        //         accessToken: expect.any(String),
-        //         refreshToken: expect.any(String)
-        //       },
-        //       message: 'Successfully created the User.'
-        //     });
-        //   });
-        //   it('should return 500 error saying email already exists', async () => {
-        //     let user: any;
-        //     user = await request(app)
-        //       .post('/api/v1/signup')
-        //       .set('Accept', 'application/json')
-        //       .send({
-        //         email: 'biswas.test12453@gmail.com',
-        //         password: 'hello',
-        //         firstName: 'test',
-        //         lastName: 'user'
-        //       })
-        //       .expect(500);
-        //     // Assert
-        //     expect(user.body).toMatchObject({
-        //       status: 500,
-        //       data: {
-        //         info: 'Email already exists.'
-        //       },
-        //       message: 'Error while creating the User.'
-        //     });
-        //   });
-        //   // Remove User
-        //   describe('User Remove', () => {
-        //     it('should remove user', async () => {
-        //       let response: any;
-        //       const userId: number = signupUser.body.data.id;
-        //       response = await request(app)
-        //         .delete(`/api/v1/users/${userId}`)
-        //         .set('Authorization', `Bearer ${signupUser.body.data.accessToken}`)
-        //         .set('Accept', 'application/json')
-        //         .expect(200);
-        //     });
-        //   });
     });
 });

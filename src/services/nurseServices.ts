@@ -13,7 +13,7 @@ interface Nurse {
 }
 
 export const createNurse = (nurse: Nurse) => {
-    return knex('nurses').insert(nurse);
+    return knex('nurses').insert(nurse).returning('*');
 } 
 
 export const fetchAllNurses = () => {
@@ -37,7 +37,7 @@ export const fetchNurseById = (nurseId: number) => {
 }
 
 export const updateNurse = (nurseId: number, nurse:object) => {
-    return knex('nurses').where('id', nurseId).update(nurse);
+    return knex('nurses').where('id', nurseId).update(nurse).returning('*').then(data => data[0]);
 }
 
 export const deleteNurseById = (nurseId: number) => {

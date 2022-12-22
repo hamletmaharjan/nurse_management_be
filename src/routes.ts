@@ -2,7 +2,7 @@ import express, { Router } from "express";
 
 const router: Router = express.Router();
 
-const userRoutes = require('./routes/userRoutes');
+// const userRoutes = require('./routes/userRoutes');
 const nurseRoutes = require('./routes/nurseRoutes');
 const authRoutes = require('./routes/authRoutes');
 
@@ -16,7 +16,7 @@ router.use('/auth', authRoutes);
 
 
 router.use('/nurses', verification, nurseRoutes);
-router.use('/users', userRoutes);
+// router.use('/users', userRoutes);
 
 
 export default router;

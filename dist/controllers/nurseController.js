@@ -16,11 +16,13 @@ const create = (req, res, next) => {
         nurse.user_id = 6;
     }
     if (req.file) {
+        console.log('file', req.file);
         nurse.image = req.file.filename;
         // nurse.image = req.file.location;
     }
     (0, nurseServices_1.createNurse)(nurse).then((data) => {
-        res.json(data);
+        // console.log('data',data);
+        res.json(data[0]);
     }).catch((error) => next(error));
 };
 exports.create = create;
