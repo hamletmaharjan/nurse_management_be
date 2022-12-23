@@ -1,10 +1,13 @@
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 export default {
     client: 'pg',
     connection: {
-      database: 'nurse_mgmt',
-      user: 'postgres',
-      password: 'postgres',
+      database: process.env.DATABASE || 'nurse_mgmt',
+      user: process.env.USER || 'postgres',
+      password: process.env.PASSWORD || 'postgres',
     },
     pool: {
       min: 2,
