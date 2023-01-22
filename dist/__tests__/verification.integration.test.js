@@ -13,7 +13,7 @@ const verification_1 = require("../middlewares/verification");
 describe('Authorization middleware', () => {
     let mockRequest;
     let mockResponse;
-    let nextFunction = jest.fn();
+    const nextFunction = jest.fn();
     beforeEach(() => {
         mockRequest = {};
         mockResponse = {
@@ -22,17 +22,17 @@ describe('Authorization middleware', () => {
     });
     test('without headers', () => __awaiter(void 0, void 0, void 0, function* () {
         const expectedResponse = {
-            "message": "No token provided."
+            message: 'No token provided.',
         };
         (0, verification_1.verification)(mockRequest, mockResponse, nextFunction);
         expect(mockResponse.json).toBeCalledWith(expectedResponse);
     }));
     test('without "authorization" header', () => __awaiter(void 0, void 0, void 0, function* () {
         const expectedResponse = {
-            "message": "No token provided."
+            message: 'No token provided.',
         };
         mockRequest = {
-            headers: {}
+            headers: {},
         };
         (0, verification_1.verification)(mockRequest, mockResponse, nextFunction);
         expect(mockResponse.json).toBeCalledWith(expectedResponse);
@@ -40,11 +40,11 @@ describe('Authorization middleware', () => {
     test('with "authorization" header', () => __awaiter(void 0, void 0, void 0, function* () {
         mockRequest = {
             headers: {
-                'authorization': 'Bearer abc'
-            }
+                authorization: 'Bearer abc',
+            },
         };
         const expectedResponse = {
-            message: 'Failed to authenticate token.'
+            message: 'Failed to authenticate token.',
         };
         (0, verification_1.verification)(mockRequest, mockResponse, nextFunction);
         expect(mockResponse.json).toBeCalledWith(expectedResponse);

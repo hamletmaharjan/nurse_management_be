@@ -13,7 +13,7 @@ const nurseController_1 = require("../controllers/nurseController");
  *   name: Nurses
  *   description: The nurses managing API
  * /nurses:
-*   get:
+ *   get:
  *     summary: Get the nurses.
  *     tags:
  *       - Nurse
@@ -36,4 +36,4 @@ router.get('/:nurseId', nurseController_1.fetchById);
 router.put('/:nurseId', imageUpload_1.default, nurseController_1.update);
 router.delete('/:nurseId', nurseController_1.deleteNurse);
 router.patch('/:nurseId/set-rounding-manager', nurseController_1.updateRoundingManager);
-module.exports = router;
+exports.default = router;

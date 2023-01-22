@@ -12,8 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.down = exports.up = void 0;
 function up(knex) {
     return __awaiter(this, void 0, void 0, function* () {
-        return knex.schema.
-            alterTable('nurses', function (table) {
+        return knex.schema.alterTable('nurses', function (table) {
             table.boolean('is_rounding_manager').defaultTo(false);
         });
     });
@@ -21,8 +20,7 @@ function up(knex) {
 exports.up = up;
 function down(knex) {
     return __awaiter(this, void 0, void 0, function* () {
-        return knex.schema.
-            alterTable('nurses', function (table) {
+        return knex.schema.alterTable('nurses', function (table) {
             table.dropColumn('is_rounding_manager');
         });
     });

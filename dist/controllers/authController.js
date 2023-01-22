@@ -10,14 +10,14 @@ const saltRounds = 10;
 const secretKey = process.env.TOKEN_SECRET_KEY || 'hidethis';
 const userSerivces_1 = require("../services/userSerivces");
 const signin = (req, res, next) => {
-    (0, userSerivces_1.fetchUserByEmail)(req.body.email).then((data) => {
+    (0, userSerivces_1.fetchUserByEmail)(req.body.email).then(data => {
         if (bcrypt_1.default.compareSync(req.body.password, data.password)) {
-            let userInfo = {
+            const userInfo = {
                 id: data.id,
                 name: data.name,
-                email: data.email
+                email: data.email,
             };
-            var token = jsonwebtoken_1.default.sign(userInfo, secretKey);
+            const token = jsonwebtoken_1.default.sign(userInfo, secretKey);
             res.json({ id: data.id, token: token, email: data.email });
         }
         else {
@@ -27,11 +27,13 @@ const signin = (req, res, next) => {
 };
 exports.signin = signin;
 const signup = (req, res, next) => {
-    let user = req.body;
+    const user = req.body;
     user.password = bcrypt_1.default.hashSync(req.body.password, saltRounds);
-    (0, userSerivces_1.createUser)(user).then((data) => {
+    (0, userSerivces_1.createUser)(user)
+        .then(data => {
         res.json({ data });
-    }).catch((error) => {
+    })
+        .catch(error => {
         next(error);
     });
 };

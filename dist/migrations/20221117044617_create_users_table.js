@@ -12,8 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.down = exports.up = void 0;
 function up(knex) {
     return __awaiter(this, void 0, void 0, function* () {
-        return knex.schema
-            .createTable('users', function (table) {
+        return knex.schema.createTable('users', function (table) {
             table.increments().primary();
             table.string('first_name', 255).notNullable();
             table.string('last_name', 255).notNullable();

@@ -19,22 +19,20 @@ describe('Users', () => {
     // Tests User Login
     describe('User Login', () => {
         it('should login user', () => __awaiter(void 0, void 0, void 0, function* () {
-            let response;
-            response = yield (0, supertest_1.default)(index_1.default)
+            const response = yield (0, supertest_1.default)(index_1.default)
                 .post('/auth/signin')
                 .set('Accept', 'application/json')
                 .send({
                 email: 'condit@live.com',
-                password: 'conditpwd'
+                password: 'conditpwd',
             })
                 .expect(200);
-            // loggedInUser = response.body.data;
             // Assert
             const user = yield (0, userSerivces_1.fetchUserByEmail)(response.body.email);
             expect(response.body).toMatchObject({
                 id: user.id,
                 token: expect.any(String),
-                email: user.email
+                email: user.email,
             });
         }));
         it('should throw invalid email or password', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -43,12 +41,12 @@ describe('Users', () => {
                 .set('Accept', 'application/json')
                 .send({
                 email: 'condit@live.com',
-                password: 'invalidpwd'
+                password: 'invalidpwd',
             })
                 .expect(401);
             // Assert
             expect(response.body).toMatchObject({
-                message: 'Incorrect email or password'
+                message: 'Incorrect email or password',
             });
         }));
     });

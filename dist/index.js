@@ -23,5 +23,5 @@ if (process.env.NODE_ENV !== 'test') {
     });
 }
 const specs = (0, swagger_jsdoc_1.default)(swaggerConfig_1.default);
-app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(specs));
+app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(specs));
 exports.default = app;

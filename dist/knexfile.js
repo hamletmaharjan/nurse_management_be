@@ -21,6 +21,6 @@ exports.default = {
     },
     migrations: {
         tableName: 'migrations',
-        directory: './migrations'
-    }
+        directory: './migrations',
+    },
 };

@@ -22,16 +22,16 @@ describe('Nurses', () => {
     describe('Create nurse', () => {
         it('should should create a nurse', () => __awaiter(void 0, void 0, void 0, function* () {
             const expectedResponse = {
-                "message": "No token provided."
+                message: 'No token provided.',
             };
             const response = yield (0, supertest_1.default)(index_1.default)
                 .post('/nurses')
                 .set('Authorization', token)
                 .set('Accept', 'application/json')
                 .send({
-                full_name: "britta perryy",
-                contact: "99913",
-                email: "britta@live.comm"
+                full_name: 'britta perryy',
+                contact: '99913',
+                email: 'britta@live.comm',
             })
                 .expect(200);
             createdNurse = response.body;
@@ -43,7 +43,7 @@ describe('Nurses', () => {
             expect({ full_name, email, contact }).toMatchObject({
                 full_name: user.full_name,
                 email: user.email,
-                contact: user.contact
+                contact: user.contact,
             });
         }));
     });
@@ -54,9 +54,9 @@ describe('Nurses', () => {
                 .set('Authorization', token)
                 .set('Accept', 'application/json')
                 .send({
-                full_name: "britta perryy edited",
-                contact: "99913",
-                email: "britta@live.comm"
+                full_name: 'britta perryy edited',
+                contact: '99913',
+                email: 'britta@live.comm',
             })
                 .expect(200);
             createdNurse = response.body;
@@ -68,7 +68,7 @@ describe('Nurses', () => {
             expect({ full_name, email, contact }).toMatchObject({
                 full_name: user.full_name,
                 email: user.email,
-                contact: user.contact
+                contact: user.contact,
             });
         }));
     });

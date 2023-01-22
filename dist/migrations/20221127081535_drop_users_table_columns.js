@@ -12,8 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.down = exports.up = void 0;
 function up(knex) {
     return __awaiter(this, void 0, void 0, function* () {
-        return knex.schema.
-            alterTable('users', function (table) {
+        return knex.schema.alterTable('users', function (table) {
             table.dropColumn('first_name');
             table.dropColumn('last_name');
         });
@@ -22,8 +21,7 @@ function up(knex) {
 exports.up = up;
 function down(knex) {
     return __awaiter(this, void 0, void 0, function* () {
-        return knex.schema
-            .alterTable('users', function (table) {
+        return knex.schema.alterTable('users', function (table) {
             table.string('first_name', 255).notNullable();
             table.string('last_name', 255).notNullable();
         });

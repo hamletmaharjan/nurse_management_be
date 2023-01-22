@@ -12,31 +12,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const { LocalFileData } = require('get-file-object-from-local-path');
 const imageValidator_1 = __importDefault(require("../validators/imageValidator"));
 let mockRequest;
 let mockResponse;
-let nextFunction = jest.fn();
+const nextFunction = jest.fn();
 beforeEach(() => {
     mockRequest = {};
     mockResponse = {
         json: jest.fn(),
     };
 });
-describe("Image validator", () => {
-    test("upload pdf", () => __awaiter(void 0, void 0, void 0, function* () {
+describe('Image validator', () => {
+    test('upload pdf', () => __awaiter(void 0, void 0, void 0, function* () {
         const file = {
-            originalname: 'sample.pdf'
+            originalname: 'sample.pdf',
         };
-        let expectedError = new Error('Only image files are allowed!');
+        const expectedError = new Error('Only image files are allowed!');
         function callback(data, isSuccess) {
             expect(data).toEqual(expectedError);
         }
         (0, imageValidator_1.default)(mockRequest, file, callback);
     }));
-    test("upload image", () => __awaiter(void 0, void 0, void 0, function* () {
+    test('upload image', () => __awaiter(void 0, void 0, void 0, function* () {
         const file = {
-            originalname: 'sample.jpg'
+            originalname: 'sample.jpg',
         };
         function callback(data, isSuccess) {
             expect(isSuccess).toBe(true);

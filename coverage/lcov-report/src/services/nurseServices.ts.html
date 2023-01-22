@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">53.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>24/30</span>
+                <span class='fraction'>16/30</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.63% </span>
+                <span class="strong">9.09% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/11</span>
+                <span class='fraction'>1/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.72% </span>
+                <span class="strong">40.9% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/22</span>
+                <span class='fraction'>9/22</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -150,20 +150,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -171,7 +163,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,37 +198,37 @@ export const createNurse = (nurse: Nurse) =&gt; {
 export const fetchAllNurses = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >    return knex.select().table('nurses').orderBy('full_name')</span>
     .then(<span class="fstat-no" title="function not covered" >(n</span>urses)=&gt; {
-	    let result = <span class="cstat-no" title="statement not covered" >nurses.map(<span class="fstat-no" title="function not covered" >function (n</span>urse) { </span>
+	    const result = <span class="cstat-no" title="statement not covered" >nurses.map(<span class="fstat-no" title="function not covered" >function (n</span>urse) { </span>
 <span class="cstat-no" title="statement not covered" >	        nurse.image = "images/" + nurse.image;</span>
 <span class="cstat-no" title="statement not covered" >	        return nurse;</span>
 	    });
 <span class="cstat-no" title="statement not covered" >	    return result;</span>
-  	});;
+  	});
 }
 &nbsp;
-export const fetchNurseById = (nurseId: number) =&gt; {
-    return knex('nurses').where('id', nurseId).first()
-    .then((nurse) =&gt; {
-      let result = nurse;
-      result.image = "images/" + result.image;
-      return result;
+export const fetchNurseById = <span class="fstat-no" title="function not covered" >(n</span>urseId: number) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return knex('nurses').where('id', nurseId).first()</span>
+    .then(<span class="fstat-no" title="function not covered" >(n</span>urse) =&gt; {
+      const result = <span class="cstat-no" title="statement not covered" >nurse;</span>
+<span class="cstat-no" title="statement not covered" >      result.image = "images/" + result.image;</span>
+<span class="cstat-no" title="statement not covered" >      return result;</span>
   });
 }
 &nbsp;
-export const updateNurse = (nurseId: number, nurse:object) =&gt; {
-    return knex('nurses').where('id', nurseId).update(nurse).returning('*').then(data =&gt; data[0]);
+export const updateNurse = <span class="fstat-no" title="function not covered" >(n</span>urseId: number, nurse:object) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return knex('nurses').where('id', nurseId).update(nurse).returning('*').then(<span class="fstat-no" title="function not covered" >data </span>=&gt; <span class="cstat-no" title="statement not covered" >data[0])</span>;</span>
 }
 &nbsp;
-export const deleteNurseById = (nurseId: number) =&gt; {
-    return knex('nurses').where('id', nurseId).del();
+export const deleteNurseById = <span class="fstat-no" title="function not covered" >(n</span>urseId: number) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return knex('nurses').where('id', nurseId).del();</span>
 }
 &nbsp;
 export const fetchRoundingManager = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >    return knex('nurses').where('is_rounding_manager',true).first();</span>
 }
 &nbsp;
-export const fetchUnmodifiedNurseById = (nurseId: number) =&gt; {
-    return knex('nurses').where('id', nurseId).first()
+export const fetchUnmodifiedNurseById = <span class="fstat-no" title="function not covered" >(n</span>urseId: number) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return knex('nurses').where('id', nurseId).first()</span>
 };
 &nbsp;
 // export const updateRoundingManager = (id:number, nurse: object) =&gt; {
@@ -241,7 +241,7 @@ export const fetchUnmodifiedNurseById = (nurseId: number) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-22T03:32:55.633Z
+                at 2023-01-22T14:32:13.679Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

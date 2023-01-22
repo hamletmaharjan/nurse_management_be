@@ -13,10 +13,10 @@ const storage = multer_1.default.diskStorage({
         cb(null, 'uploads/images');
     },
     filename: function (req, file, cb) {
-        let fileName = file.originalname;
-        let splitted = fileName.split('.');
+        const fileName = file.originalname;
+        const splitted = fileName.split('.');
         cb(null, file.fieldname + '-' + Date.now() + '.' + splitted[splitted.length - 1]);
-    }
+    },
 });
 const upload = (0, multer_1.default)({ storage: storage, fileFilter: imageValidator_1.default });
 exports.default = upload;

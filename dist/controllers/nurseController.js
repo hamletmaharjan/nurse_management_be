@@ -8,7 +8,7 @@ const fs_1 = __importDefault(require("fs"));
 const path = 'uploads/images';
 const nurseServices_1 = require("../services/nurseServices");
 const create = (req, res, next) => {
-    let nurse = req.body;
+    const nurse = req.body;
     if (req.user) {
         nurse.user_id = req.user.id;
     }
@@ -20,16 +20,19 @@ const create = (req, res, next) => {
         nurse.image = req.file.filename;
         // nurse.image = req.file.location;
     }
-    (0, nurseServices_1.createNurse)(nurse).then((data) => {
-        // console.log('data',data);
+    (0, nurseServices_1.createNurse)(nurse)
+        .then(data => {
         res.json(data[0]);
-    }).catch((error) => next(error));
+    })
+        .catch(error => next(error));
 };
 exports.create = create;
 const fetchAll = (req, res, next) => {
-    (0, nurseServices_1.fetchAllNurses)().then((data) => {
+    (0, nurseServices_1.fetchAllNurses)()
+        .then(data => {
         res.json(data);
-    }).catch((error) => next(error));
+    })
+        .catch(error => next(error));
 };
 exports.fetchAll = fetchAll;
 const fetchById = (req, res, next) => {
@@ -40,8 +43,9 @@ const fetchById = (req, res, next) => {
 exports.fetchById = fetchById;
 const update = (req, res, next) => {
     const id = req.params.nurseId;
-    (0, nurseServices_1.fetchUnmodifiedNurseById)(id).then((data) => {
-        let nurse = req.body;
+    (0, nurseServices_1.fetchUnmodifiedNurseById)(id)
+        .then(data => {
+        const nurse = req.body;
         nurse.user_id = req.user.id;
         if (data.user_id === req.user.id) {
             if (req.file) {
@@ -59,7 +63,7 @@ const update = (req, res, next) => {
             return (0, nurseServices_1.updateNurse)(id, nurse);
         }
         else {
-            res.json({ message: "not authorized" });
+            res.json({ message: 'not authorized' });
         }
     })
         .then(data => res.json(data))
@@ -68,7 +72,8 @@ const update = (req, res, next) => {
 exports.update = update;
 const deleteNurse = (req, res, next) => {
     const id = req.params.nurseId;
-    (0, nurseServices_1.fetchUnmodifiedNurseById)(id).then((data) => {
+    (0, nurseServices_1.fetchUnmodifiedNurseById)(id)
+        .then(data => {
         if (data.user_id === req.user.id) {
             if (data.image) {
                 try {
@@ -81,7 +86,7 @@ const deleteNurse = (req, res, next) => {
             return (0, nurseServices_1.deleteNurseById)(id);
         }
         else {
-            res.json({ message: "not authorized" });
+            res.json({ message: 'not authorized' });
         }
     })
         .then(data => res.json(data))
@@ -90,20 +95,25 @@ const deleteNurse = (req, res, next) => {
 exports.deleteNurse = deleteNurse;
 const updateRoundingManager = (req, res, next) => {
     const id = req.params.nurseId;
-    (0, nurseServices_1.fetchRoundingManager)().then(data => {
+    (0, nurseServices_1.fetchRoundingManager)()
+        .then(data => {
         if (!data || data.id == id) {
             console.log('return');
             return;
         }
-        let roundingManager = Object.assign(Object.assign({}, data), { is_rounding_manager: false });
+        const roundingManager = Object.assign(Object.assign({}, data), { is_rounding_manager: false });
         return (0, nurseServices_1.updateNurse)(data.id, roundingManager);
-    }).then(data => {
+    })
+        .then(data => {
         return (0, nurseServices_1.fetchUnmodifiedNurseById)(id);
-    }).then(data => {
-        let newRoundingManager = Object.assign(Object.assign({}, data), { is_rounding_manager: !data.is_rounding_manager });
+    })
+        .then(data => {
+        const newRoundingManager = Object.assign(Object.assign({}, data), { is_rounding_manager: !data.is_rounding_manager });
         return (0, nurseServices_1.updateNurse)(newRoundingManager.id, newRoundingManager);
-    }).then(data => {
+    })
+        .then(data => {
         return res.json(data);
-    }).catch(error => next(error));
+    })
+        .catch(error => next(error));
 };
 exports.updateRoundingManager = updateRoundingManager;

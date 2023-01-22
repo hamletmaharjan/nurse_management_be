@@ -1,11 +1,17 @@
-import express, { Router } from "express";
+import express, { Router } from 'express';
 
 const router: Router = express.Router();
 
-import imageUpload from '../middlewares/imageUpload'
+import imageUpload from '../middlewares/imageUpload';
 
-import {create, fetchAll, update, deleteNurse, fetchById, updateRoundingManager} from '../controllers/nurseController';
-
+import {
+  create,
+  fetchAll,
+  update,
+  deleteNurse,
+  fetchById,
+  updateRoundingManager,
+} from '../controllers/nurseController';
 
 /**
  * @swagger
@@ -13,7 +19,7 @@ import {create, fetchAll, update, deleteNurse, fetchById, updateRoundingManager}
  *   name: Nurses
  *   description: The nurses managing API
  * /nurses:
-*   get:
+ *   get:
  *     summary: Get the nurses.
  *     tags:
  *       - Nurse
@@ -30,9 +36,9 @@ import {create, fetchAll, update, deleteNurse, fetchById, updateRoundingManager}
  *                    items:
  *                     $ref: '#/components/schemas/Nurse'
  */
-router.get('/', fetchAll)
+router.get('/', fetchAll);
 
-router.post('/',imageUpload, create);
+router.post('/', imageUpload, create);
 
 router.get('/:nurseId', fetchById);
 
@@ -42,5 +48,4 @@ router.delete('/:nurseId', deleteNurse);
 
 router.patch('/:nurseId/set-rounding-manager', updateRoundingManager);
 
-
-module.exports = router;
+export default router;

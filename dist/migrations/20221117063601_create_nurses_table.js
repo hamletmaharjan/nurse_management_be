@@ -12,8 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.down = exports.up = void 0;
 function up(knex) {
     return __awaiter(this, void 0, void 0, function* () {
-        return knex.schema
-            .createTable('nurses', function (table) {
+        return knex.schema.createTable('nurses', function (table) {
             table.increments().primary();
             table.string('full_name', 255).notNullable();
             table.string('contact', 255);
@@ -24,12 +23,12 @@ function up(knex) {
             table.string('image', 255);
             table.string('email').notNullable().unique();
             table.timestamps();
-            table.integer("user_id");
+            table.integer('user_id');
             table
-                .foreign("user_id")
-                .references("id")
-                .inTable("users")
-                .onDelete("SET NULL");
+                .foreign('user_id')
+                .references('id')
+                .inTable('users')
+                .onDelete('SET NULL');
         });
     });
 }
